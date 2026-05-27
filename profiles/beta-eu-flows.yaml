@@ -1,0 +1,34 @@
+# Beta EU Team Flows Configuration
+flows:
+  order_processing:
+    name: Order Processing
+    services: [order_service, payment_service_eu, shipping_service]
+    slos:
+      - id: order_success
+        objective: 90
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="order_service",status!="OK"}
+        total_query: http_requests_total{service="order_service"}
+
+  catalog_management:
+    name: Catalog Management
+    services: [catalog_service, inventory_service_eu]
+    slos:
+      - id: catalog_success
+        objective: 95
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="catalog_service",status!="OK"}
+        total_query: http_requests_total{service="catalog_service"}
+
+  customer_support:
+    name: Customer Support
+    services: [support_service, ticketing_service]
+    slos:
+      - id: support_success
+        objective: 85
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="support_service",status!="OK"}
+        total_query: http_requests_total{service="support_service"}

@@ -1,0 +1,88 @@
+# Beta EU Configuration with Runbook Suggestions
+profile: beta-eu
+region: eu-west
+environment: beta
+
+# Core configuration
+data_dir: /etc/health-monitor/state/beta-eu
+prometheus_url: http://eu.monitor.local:9090
+loki_url: http://eu.monitor.local:3100
+tempo_url: http://eu.monitor.local:3200
+
+# Service configuration
+services:
+  order_service:
+    enabled: true
+    port: 8081
+    health_check: /health
+    dependencies:
+      - mysql
+      - redis
+  catalog_service:
+    enabled: true
+    port: 8082
+    health_check: /health
+    dependencies:
+      - redis
+      - postgres
+  identity_service:
+    enabled: true
+    port: 8083
+    health_check: /health
+    dependencies:
+      - jwt_service
+      - redis
+
+# Notification configuration
+notifications:
+  enabled: true
+  notifyon: ["started", "suggest", "ack", "resolve"]
+  slack:
+    enabled: true
+    webhook_url: "https://hooks.slack.com/services/beta-eu"
+    channel: "#beta-eu-incidents"
+  pagerduty:
+    enabled: true
+    api_key: "beta-eu-pd-key"
+    service_key: "beta-eu-service-key"
+
+# Runbook Suggestions Configuration
+runbook_suggestions:
+  enabled: true
+  auto_generate: false
+  confidence_threshold: 0.7
+  template_directory: "/etc/health-monitor/runbook-templates"
+  output_directory: "/var/lib/health-monitor/runbooks/beta-eu"
+  output_format: "markdown"
+  publish_to_wiki: false
+  wiki_url: ""
+  notification_webhook: ""
+  retention_days: 365
+  max_runbooks_per_pattern: 10
+  enabled_categories: ["capacity", "latency", "dependency", "infra"]
+  disabled_services: []
+
+# Static runbook URLs (existing functionality)
+runbook_urls:
+  order_service: https://eu-wiki/runbooks/order-service
+  catalog_service: https://eu-wiki/runbooks/catalog-service
+  identity_service: https://eu-wiki/runbooks/identity-service
+
+# Alert rules
+alerts:
+  - match: alertname=BetaEUIdentityIssue,service=identity_service
+    severity: P1
+    mode: auto
+    title: Beta EU - Authentication Incident
+  - match: alertname=BetaEUOrderIssue,service=order_service
+    severity: P1
+    mode: auto
+    title: Beta EU - Order Processing Incident
+  - match: alertname=BetaEUCatalogIssue,service=catalog_service
+    severity: P2
+    mode: auto
+    title: Beta EU - Catalog Incident
+  - match: service=order_service
+    severity: P2
+    mode: auto
+    title: Beta EU - Order Service Alert

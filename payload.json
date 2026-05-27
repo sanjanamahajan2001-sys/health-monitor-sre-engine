@@ -1,0 +1,10 @@
+{
+  "alerts":[
+    {
+      "labels":{
+        "alertname":"HighLatency",
+        "service":"billing_api"
+      }
+    }
+  ]
+}

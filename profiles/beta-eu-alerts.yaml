@@ -1,0 +1,18 @@
+alerts:
+  - match:
+      service: identity_service
+    severity: P1
+    mode: auto
+    title: "Beta EU - Authentication Incident"
+
+  - match:
+      service: order_service
+    severity: P1
+    mode: auto
+    title: "Beta EU - Order Processing Incident"
+
+  - match:
+      service: catalog_service
+    severity: P2
+    mode: auto
+    title: "Beta EU - Catalog Incident"

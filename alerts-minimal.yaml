@@ -1,0 +1,6 @@
+alerts:
+  - match:
+      receiver: test
+    severity: P2
+    mode: auto
+    title: "Test Incident"

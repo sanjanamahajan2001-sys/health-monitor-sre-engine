@@ -1,0 +1,12 @@
+[Unit]
+Description=health-monitor alert listener
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/health-monitor alert listen --addr 127.0.0.1:9095 --pid-file /run/health-monitor-alert.pid
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

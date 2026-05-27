@@ -1,0 +1,16 @@
+{
+  "receiver": "test",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "Test",
+        "service": "test"
+      },
+      "annotations": {
+        "summary": "Test webhook"
+      }
+    }
+  ]
+}

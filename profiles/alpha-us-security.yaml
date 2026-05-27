@@ -1,0 +1,25 @@
+# Alpha US Profile with Security Features Enabled
+# This extends the base alpha-us configuration
+
+# Import base configuration
+# Base alerts and flows are loaded from alpha-us-alerts.yaml and alpha-us-flows.yaml
+
+# Security configuration
+security:
+  # Enable input validation first (safest to start with)
+  webhook:
+    validation:
+      enabled: true
+      max_alerts_per_request: 100
+      max_label_size: 1024
+      max_annotation_size: 4096
+      allowed_characters: "a-zA-Z0-9._-"
+    
+    # Keep other features disabled for now
+    auth:
+      enabled: false
+    rate_limit:
+      enabled: false
+
+# You can add other profile-specific configurations here
+# For example, notifications, observability settings, etc.

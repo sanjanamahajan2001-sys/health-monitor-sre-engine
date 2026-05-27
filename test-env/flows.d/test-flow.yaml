@@ -1,0 +1,12 @@
+flows:
+  test_flow:
+    name: "Test Flow"
+    services: [test_service]
+    slos:
+      - id: test_slo
+        service: test_service_mapped
+        objective: 99.9
+        window: 1m
+        type: ratio
+        error_query: "test_errors"
+        total_query: "test_total"

@@ -1,0 +1,152 @@
+name: alpha-us
+config:
+    prometheus_url: http://us.monitor.local:9092
+    prometheus_token: ""
+    prometheus_user: ""
+    prometheus_pass: ""
+    prometheus_service_label: service
+    disable_updates: false
+    loki_url: http://us.monitor.local:3100
+    loki_token: ""
+    loki_user: ""
+    loki_pass: ""
+    loki_service_label: service
+    loki_route_label: route
+    loki_error_regex: ERROR|Exception|timeout|5[0-9][0-9]
+    loki_window: 5m
+    grafana_url: http://us.monitor.local:3001
+    grafana_prom_ds: Prometheus
+    grafana_loki_ds: Loki
+    grafana_trace_ds: Tempo
+    grafana_org_id: 0
+    grafana_token: ""
+    grafana_user: ""
+    grafana_pass: ""
+    trace_backend: tempo
+    trace_url: http://us.monitor.local:3200
+    trace_token: ""
+    trace_user: ""
+    trace_pass: ""
+    trace_service_map: billing_api=billing_api,payments_service=payments_service
+    trace_service_tag: service
+    trace_default_service: billing_api
+    trace_window: 5m
+    trace_min_duration_ms: 10
+    trace_exclude_system_routes: true
+    trace_time_unit: ms
+    correlation_best_effort: true
+    correlation_min_samples: 20
+    correlation_max_logs: 200
+    correlation_max_results: 5
+    correlation_window: 5m
+    log_backend: loki
+    elastic_url: ""
+    elastic_index: ""
+    elastic_token: ""
+    elastic_user: ""
+    elastic_pass: ""
+    elastic_service_field: service.name
+    elastic_route_field: http.route
+    elastic_error_field: error
+    elastic_time_field: '@timestamp'
+    elastic_error_regex: ERROR|error|Exception|exception
+    kibana_url: ""
+    kibana_index: ""
+    api_service: billing_api
+    api_route: /checkout
+    service_label: service
+    route_label: route
+    latency_metric: http_request_duration_seconds
+    request_count_metric: http_requests_total
+    error_label: status
+    error_regex: 5..
+    auto_discover: true
+    latency_threshold_seconds: 1
+    top_endpoints: 5
+    window: 5m
+    extra_label_selectors: ""
+    route_cardinality_limit: 110
+    service_cardinality_limit: 50
+    apm_dependency_metric: dependency_request_latency_seconds
+    apm_source_label: source_service
+    apm_dest_label: destination_service
+    apm_route_label: route
+    apm_window: 10m
+    apm_top_edges: 10
+    apm_cardinality_limit: 100
+    apm_min_rps: 0.1
+    runbooks:
+        billing_api: https://us-wiki/runbooks/billing
+        payments_service: https://us-wiki/runbooks/payments
+    export_path: ""
+    data_dir: /var/lib/health-monitor/alpha-us
+    prometheus_qps: 10
+    loki_qps: 3
+    observability_lookback_minutes: 5
+    notifications:
+        enabled: true
+        notifyon: ["start", "suggest", "ack", "resolve"]
+        slack:
+            enabled: false
+            webhookurl: ""
+            timeoutseconds: 30
+            maxretries: 3
+        pagerduty:
+            enabled: true
+            routingkey: 15898ff8e54f420ad0cc6abb05ef46a6
+            severitymap: {}
+            timeoutseconds: 30
+            maxretries: 3
+        slackwebhookurl: ""
+        timeoutseconds: 30
+        maxretries: 3
+    security:
+        webhook:
+            auth:
+                enabled: true
+                tokens:
+                    - name: "test-token"
+                      token: "Bearer abc123xyz"
+                      description: "Test authentication token"
+                ip_whitelist:
+                    enabled: false
+                    allowed_ips: []
+            rate_limit:
+                enabled: true
+                requests_per_minute: 10
+                burst_size: 5
+            validation:
+                enabled: true
+                max_alerts_per_request: 100
+                max_label_size: 1024
+                max_annotation_size: 4096
+                allowed_characters: "a-zA-Z0-9._-"
+        rbac:
+            enabled: false
+            roles:
+                operator:
+                    - "incident:list"
+                    - "incident:view"
+                    - "incident:resolve"
+                admin:
+                    - "*"
+            users: {}
+        audit:
+            enabled: true
+            log_file: "/var/log/health-monitor/audit.log"
+            events:
+                - "incident_created"
+                - "incident_resolved"
+                - "config_changed"
+                - "webhook_request"
+            retention_days: 90
+        api_keys:
+            enabled: false
+            keys: []
+        encryption:
+            enabled: false
+            key_file: "/etc/health-monitor/encryption.key"
+            encrypted_fields:
+                - "webhook_url"
+                - "api_key"
+                - "routing_key"

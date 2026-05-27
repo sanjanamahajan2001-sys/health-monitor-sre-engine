@@ -1,0 +1,38 @@
+# Alert Rules for Health-Monitor
+# This file defines how incoming webhooks are processed and converted to incidents
+
+rules:
+  # Rule for test alerts
+  - name: "test-alert-rule"
+    mode: "create"  # create, update, resolve
+    severity: "P2"
+    title_template: "{{.annotations.summary}}"
+    service_template: "{{.labels.service}}"
+    conditions:
+      # Match all alerts for testing
+      - field: "receiver"
+        operator: "equals"
+        value: "test"
+      - field: "status"
+        operator: "equals"
+        value: "firing"
+    
+  # Rule for generic alerts
+  - name: "generic-alert-rule"
+    mode: "create"
+    severity: "P1"
+    title_template: "{{.annotations.summary}} ({{.labels.alertname}})"
+    service_template: "{{.labels.service}}"
+    conditions:
+      - field: "status"
+        operator: "equals"
+        value: "firing"
+      - field: "severity"
+        operator: "in"
+        value: ["critical", "warning"]
+
+# Global settings
+settings:
+  dry_run: false
+  max_incidents_per_hour: 10
+  deduplication_window: "5m"

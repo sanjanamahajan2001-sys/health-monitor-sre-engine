@@ -1,0 +1,28 @@
+alerts:
+  - match:
+      service: database_service
+      alertname: CorePlatformDatabaseIssue
+    severity: P1
+    mode: auto
+    title: "Core Platform - Database Incident"
+
+  - match:
+      service: metrics_service
+      alertname: CorePlatformMetricsIssue
+    severity: P1
+    mode: auto
+    title: "Core Platform - Monitoring Incident"
+
+  - match:
+      service: security_service
+      alertname: CorePlatformSecurityIssue
+    severity: P1
+    mode: auto
+    title: "Core Platform - Security Incident"
+
+  - match:
+      service: billing_api
+      alertname: CorePlatformBillingIssue
+    severity: P2
+    mode: auto
+    title: "Core Platform - Billing Impact"

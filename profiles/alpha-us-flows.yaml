@@ -1,0 +1,34 @@
+# Alpha US Team Flows Configuration
+flows:
+  checkout:
+    name: Checkout
+    services: [billing_api, payment_service, inventory_service]
+    slos:
+      - id: checkout_success
+        objective: 90
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="billing_api",status!="OK"}
+        total_query: http_requests_total{service="billing_api"}
+
+  user_auth:
+    name: User Authentication
+    services: [identity_service, auth_service]
+    slos:
+      - id: auth_success
+        objective: 95
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="identity_service",status!="OK"}
+        total_query: http_requests_total{service="identity_service"}
+
+  user_profile:
+    name: User Profile Management
+    services: [user_service, profile_service]
+    slos:
+      - id: profile_success
+        objective: 90
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="user_service",status!="OK"}
+        total_query: http_requests_total{service="user_service"}

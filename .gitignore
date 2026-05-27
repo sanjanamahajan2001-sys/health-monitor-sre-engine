@@ -1,0 +1,42 @@
+# Binaries
+health-monitor
+health-monitor-linux-amd64-v0.0.1
+health-monitor-test
+*.exe
+*.bin
+*.out
+
+# Credentials & TLS Keys
+*.pem
+cert.pem
+key.pem
+token.txt
+
+# Log Files & Caches
+*.log
+slo-monitor.log
+tui_error.log
+debug.log
+debug_final.log
+enhanced_debug.log
+prun_debug.log
+stderr.log
+build_errors.log
+no_altscreen.log
+update_debug.log
+out.txt
+*.sqlite-journal
+
+# Databases and State directories
+postgres_db
+redis_cache
+stripe_api
+tmp/
+var/lib/health-monitor/state/
+~/.health-monitor/state/
+
+# IDE & OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

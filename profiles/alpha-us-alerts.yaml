@@ -1,0 +1,46 @@
+alerts:
+  - match:
+      service: billing_api
+      alertname: BillingAPIIssue
+    severity: P1
+    mode: auto
+    title: "Alpha US - Checkout Incident"
+
+  - match:
+      service: billing_api
+      alertname: BillingServiceHighLatency
+    severity: P2
+    mode: auto
+    title: "Alpha US - Billing High Latency"
+
+  - match:
+      service: payments_service
+      alertname: PaymentsServiceIssue
+    severity: P2
+    mode: auto
+    title: "Alpha US - Payments Incident"
+
+  - match:
+      service: identity_service
+      alertname: IdentityServiceIssue
+    severity: P1
+    mode: auto
+    title: "Alpha US - Authentication Incident"
+
+  - match:
+      service: billing_api
+    severity: P2
+    mode: auto
+    title: "Alpha US - Billing Service Alert"
+
+  - match:
+      service: payments_service
+    severity: P2
+    mode: auto
+    title: "Alpha US - Payments Service Alert"
+
+  - match:
+      service: identity_service
+    severity: P2
+    mode: auto
+    title: "Alpha US - Identity Service Alert"

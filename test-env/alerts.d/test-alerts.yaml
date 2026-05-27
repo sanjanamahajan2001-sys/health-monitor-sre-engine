@@ -1,0 +1,6 @@
+alerts:
+  - match:
+      service: test_service_mapped
+    severity: P1
+    mode: auto
+    title: "Mapped SLO Alert"

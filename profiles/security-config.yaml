@@ -1,0 +1,112 @@
+# Security Configuration for Health Monitor
+# All features are DISABLED by default for backward compatibility
+# Enable features gradually as needed
+
+security:
+  # Webhook Authentication & Authorization
+  webhook:
+    auth:
+      enabled: false  # Set to true to enable webhook authentication
+      
+      # Bearer token authentication
+      tokens:
+        - name: "prometheus"
+          token: "Bearer your-prometheus-token-here"
+          description: "Token for Prometheus webhook"
+        - name: "grafana"
+          token: "Bearer your-grafana-token-here"
+          description: "Token for Grafana webhook"
+      
+      # IP whitelist (optional)
+      ip_whitelist:
+        enabled: false
+        allowed_ips:
+          - "10.0.0.0/8"      # Private network
+          - "192.168.0.0/16"  # Private network
+          - "172.16.0.0/12"   # Private network
+          - "127.0.0.1"       # Localhost
+    
+    # Rate Limiting
+    rate_limit:
+      enabled: false  # Set to true to enable rate limiting
+      requests_per_minute: 1000
+      burst_size: 100
+    
+    # Input Validation
+    validation:
+      enabled: false  # Set to true to enable input validation
+      max_alerts_per_request: 100
+      max_label_size: 1024
+      max_annotation_size: 4096
+      allowed_characters: "a-zA-Z0-9._-"  # Regex character class
+  
+  # Role-Based Access Control (RBAC)
+  rbac:
+    enabled: false  # Set to true to enable RBAC
+    
+    # Define roles and their permissions
+    roles:
+      operator:
+        - "incident:list"
+        - "incident:view"
+        - "incident:resolve"
+      admin:
+        - "*"  # All permissions
+    
+    # Map users to roles
+    users:
+      john: "operator"
+      jane: "admin"
+  
+  # Audit Logging
+  audit:
+    enabled: false  # Set to true to enable audit logging
+    log_file: "/var/log/health-monitor/audit.log"
+    events:
+      - "incident_created"
+      - "incident_resolved"
+      - "config_changed"
+      - "user_login"
+      - "webhook_request"
+    retention_days: 90
+  
+  # API Key Authentication
+  api_keys:
+    enabled: false  # Set to true to enable API key authentication
+    
+    keys:
+      - name: "monitoring-system"
+        key: "hm-api-abc123def456"
+        permissions:
+          - "incident:list"
+          - "incident:view"
+        description: "API key for monitoring system"
+      - name: "automation-tool"
+        key: "hm-api-xyz789uvw012"
+        permissions:
+          - "incident:resolve"
+        description: "API key for automation tool"
+  
+  # Data Encryption
+  encryption:
+    enabled: false  # Set to true to enable data encryption
+    key_file: "/etc/health-monitor/encryption.key"
+    encrypted_fields:
+      - "webhook_url"
+      - "api_key"
+      - "routing_key"
+
+# Example Environment Variables for Secrets:
+# Export these in your shell or use a secrets management system
+#
+# SLACK_WEBHOOK_URL="https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+# PAGERDUTY_ROUTING_KEY="your-pagerduty-routing-key"
+# PROMETHEUS_TOKEN="your-prometheus-token"
+# LOKI_TOKEN="your-loki-token"
+#
+# Then reference them in config as:
+# notifications:
+#   slack:
+#     webhook_url: "${SLACK_WEBHOOK_URL}"
+#   pagerduty:
+#     routing_key: "${PAGERDUTY_ROUTING_KEY}"

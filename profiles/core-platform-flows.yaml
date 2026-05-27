@@ -1,0 +1,34 @@
+# Core Platform Team Flows Configuration
+flows:
+  infrastructure:
+    name: Infrastructure
+    services: [database_service, cache_service, message_queue]
+    slos:
+      - id: infra_success
+        objective: 99
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="database_service",status!="OK"}
+        total_query: http_requests_total{service="database_service"}
+
+  monitoring:
+    name: Monitoring & Observability
+    services: [metrics_service, logging_service, alerting_service]
+    slos:
+      - id: monitoring_success
+        objective: 95
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="metrics_service",status!="OK"}
+        total_query: http_requests_total{service="metrics_service"}
+
+  security:
+    name: Security Services
+    services: [security_service, firewall_service, audit_service]
+    slos:
+      - id: security_success
+        objective: 99
+        window: 5m
+        type: ratio
+        error_query: http_requests_total{service="security_service",status!="OK"}
+        total_query: http_requests_total{service="security_service"}
