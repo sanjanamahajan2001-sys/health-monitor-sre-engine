@@ -185,6 +185,12 @@ sudo ./health-monitor --wizard-team --preset microservices --profile core-platfo
     *   `devops-team` / `sre-team`: Custom dashboards mapping container workloads, disk I/O, error budgets, and P99 latency regressions.
 
 ---
+<img width="1372" height="985" alt="image" src="https://github.com/user-attachments/assets/dd2fac3a-d99a-452a-980a-c2a3f23965d1" />
+<img width="1839" height="963" alt="image" src="https://github.com/user-attachments/assets/0f533d65-8fbd-4c9a-a895-7fbe6178a510" />
+<img width="1190" height="728" alt="image" src="https://github.com/user-attachments/assets/e5ca304b-5b5c-4176-8369-052d792dca93" />
+
+<img width="1441" height="988" alt="image" src="https://github.com/user-attachments/assets/f0487ef5-8bc2-40e0-a7d5-07cb5eb5d748" />
+<img width="1403" height="972" alt="image" src="https://github.com/user-attachments/assets/65791d4c-96b1-4c16-8d60-1f93a0810ec6" />
 
 ### 2. Incident Management Lifecycle
 
@@ -218,6 +224,10 @@ health-monitor incident postmortem --id INC-20260220-123456
 ```
 
 ---
+<img width="1264" height="920" alt="image" src="https://github.com/user-attachments/assets/f872c1b7-8ce3-44a9-a1d1-515e3c4cd8df" />
+<img width="1219" height="941" alt="image" src="https://github.com/user-attachments/assets/a9e02c72-0e18-4360-9397-0a5dd641f725" />
+<img width="1230" height="875" alt="image" src="https://github.com/user-attachments/assets/f45e59c8-cfc3-4757-b66b-3f9fcdabcae3" />
+
 
 ### 3. Automated Runbooks & Playbooks
 
@@ -235,6 +245,7 @@ sudo health-monitor runbook generate --incident INC-20260220-123456 --save
     *   What went well, what could be better, and exact command configurations executed in previous successful recoveries.
 
 ---
+<img width="1587" height="747" alt="image" src="https://github.com/user-attachments/assets/5f02ab08-8295-454f-8da8-035c441a1630" />
 
 ### 4. ML Predictive Anomaly Prevention
 
@@ -255,6 +266,8 @@ health-monitor prevent describe PRED-123456789
 ```
 
 ---
+<img width="1796" height="309" alt="image" src="https://github.com/user-attachments/assets/73cf91d8-606c-484c-8de4-b8584a139e0f" />
+<img width="1410" height="970" alt="image" src="https://github.com/user-attachments/assets/a93b18bd-d248-46af-a325-ba4c7cb31cc9" />
 
 ### 5. Multi-User Collaborative SSH Tunnels
 
